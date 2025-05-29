@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    bool isRunning = false;
-    bool isStacked = false;
+    [HideInInspector] public bool isRunning { get; private set; }
+    [HideInInspector] public bool isStacked { get; private set; }
+
     float yAmountToElevate = 1f;
     float zAmountToSit = -1f;
 
@@ -34,7 +35,12 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponent<Animator>().SetBool("isStacked", true);
 
         gameObject.GetComponent<Rigidbody>().useGravity = false;
-        transform.position = new Vector3(transform.position.x, transform.position.y + yAmountToElevate, transform.position.z + zAmountToSit);
+        MoveWithRunner(transform.position);
+    }
+
+    public void MoveWithRunner(Vector3 runnerPosition)
+    {
+        transform.position = new Vector3(runnerPosition.x, runnerPosition.y + yAmountToElevate, runnerPosition.z + zAmountToSit);
     }
 
     private void OnCollisionEnter(Collision collision)

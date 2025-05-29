@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -64,6 +65,19 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void LateUpdate()
+    {
+        UpdateStackedCharacters();
+    }
+
+    void UpdateStackedCharacters()
+    {
+        foreach(PlayerController character in characters.Where(c => c.isStacked).ToList())
+        {
+            character.MoveWithRunner(currentPlayer.transform.position);
+        }
     }
 
     public void SetNewRunner(GameObject newRunner)
