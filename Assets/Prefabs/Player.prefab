@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5b717b334eb95ad41a2ff983c140d67f, type: 3}
+      propertyPath: m_TagString
+      value: Character
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 5b717b334eb95ad41a2ff983c140d67f, type: 3}
       propertyPath: m_Controller
       value: 
@@ -91,8 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c133927764b351478a0d3d5ea2a387d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRunning: 0
-  isStacked: 0
 --- !u!54 &2782440376002979436
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -139,5 +141,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.243132, y: 1.8794171, z: 0.62010765}
-  m_Center: {x: 0.005065024, y: 0.9259867, z: 0.0075979233}
+  m_Size: {x: 1.243132, y: 1.8794171, z: 0.78271866}
+  m_Center: {x: 0.005065024, y: 0.9259867, z: -0.07370758}
