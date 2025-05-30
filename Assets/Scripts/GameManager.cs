@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     {
         CreateFirstPlayer();
         CreateIdleCharacters();
+        cameraController.SetOffset(currentPlayer.transform.position);
     }
 
     private void CreateFirstPlayer()
@@ -83,6 +84,7 @@ public class GameManager : MonoBehaviour
     private void LateUpdate()
     {
         UpdateStackedCharacters();
+        cameraController.UpdateCameraToRunner(currentPlayer.transform.position);
     }
 
     void UpdateStackedCharacters()

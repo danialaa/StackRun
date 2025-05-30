@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private Vector3 offset;
+
+    public void SetOffset(Vector3 runnerPosition)
     {
-        
+        offset = runnerPosition - transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateCameraToRunner(Vector3 runnerPos)
     {
-        
+        transform.position = runnerPos - offset;
     }
 }
