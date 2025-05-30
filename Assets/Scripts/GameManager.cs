@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     private List<PlayerController> characters = new List<PlayerController>();
     private PlayerController currentPlayer;
     private int scoreValue = 0;
+    private bool isGoingLeft = false;
+    private bool isGoingRight = false;
 
     public int stackCt = 0;
 
@@ -78,7 +80,25 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.A) || isGoingLeft)
+        {
+            isGoingLeft = true;
+            currentPlayer.MoveRunner(new Vector3(-0.1f, 0, 0));
+        }
+        if (Input.GetKeyDown(KeyCode.D) || isGoingRight)
+        {
+            isGoingRight = true;
+            currentPlayer.MoveRunner(new Vector3(0.1f, 0, 0));
+        }
+
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            isGoingLeft = false;
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            isGoingRight = false;
+        }
     }
 
     private void LateUpdate()

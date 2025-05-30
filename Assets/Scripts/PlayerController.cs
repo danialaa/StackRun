@@ -12,16 +12,9 @@ public class PlayerController : MonoBehaviour
     float stackedXRotation = 24f;
     float sittingZDistance = -0.15f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void MoveRunner(Vector3 positionChange)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        transform.position = transform.position + positionChange;
     }
 
     public void StartRunning()
