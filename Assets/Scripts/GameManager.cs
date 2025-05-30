@@ -10,9 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] CameraController cameraController;
     [SerializeField] GameObject playerPrefab;
     [SerializeField] Transform plane;
-    [SerializeField] int idleCt = 3;
+    [SerializeField] int idleCt = 6;
 
-    //make a pool of random unique vectors in plane and then randomly place characters into those ((could be a dictionary of vector bool to make sure its not already occupied))
+    private Dictionary<Vector3, bool> locationPool = new Dictionary<Vector3, bool>();
     private List<PlayerController> characters = new List<PlayerController>();
     private PlayerController currentPlayer;
 
@@ -26,6 +26,17 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         else
             Instance = this;
+
+        locationPool = new Dictionary<Vector3, bool>() { { new Vector3(2, 0, -11), false },
+                                                         { new Vector3(0, 0, -3), false },
+                                                         { new Vector3(-4, 0, -7), false },
+                                                         { new Vector3(11, 0, 9), false },
+                                                         { new Vector3(-9, 0, 6), false },
+                                                         { new Vector3(13, 0, -5), false },
+                                                         { new Vector3(6, 0, -1), false },
+                                                         { new Vector3(-10, 0, -9), false },
+                                                         { new Vector3(-13, 0, -1), false },
+                                                         { new Vector3(1, 0, 12), false }};
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,11 +44,6 @@ public class GameManager : MonoBehaviour
     {
         CreateFirstPlayer();
         CreateIdleCharacters();
-
-        //float minX = plane.position.x - (plane.localScale.x / 2) + playerPrefab.transform.localScale.x;
-        //float maxX = plane.position.x + (plane.localScale.x / 2) - playerPrefab.transform.localScale.x;
-        //float minZ = plane.position.z - (plane.localScale.z / 2) + playerPrefab.transform.localScale.z;
-        //float maxZ = plane.position.z + (plane.localScale.z / 2) - playerPrefab.transform.localScale.z;
     }
 
     private void CreateFirstPlayer()
@@ -51,15 +57,17 @@ public class GameManager : MonoBehaviour
 
     private void CreateIdleCharacters()
     {
-        int[] pos = new int[3] { -10, -4, 4 };
-
         for (int i = 0; i < idleCt; i++)
         {
-            //Vector3 randomPos = new Vector3(UnityEngine.Random.Range(minX, maxX), playerPrefab.transform.position.y, UnityEngine.Random.Range(minZ, maxZ));
-            GameObject newCharacter = Instantiate(playerPrefab, /*randomPos*/ new Vector3(playerPrefab.transform.position.x, playerPrefab.transform.position.y, pos[i]), Quaternion.identity);
+            List<Vector3> availablePositions = locationPool.Where(l => !l.Value).Select(l => l.Key).ToList();
+            int randomPos = UnityEngine.Random.Range(0, availablePositions.Count);
+
+            GameObject newCharacter = Instantiate(playerPrefab, availablePositions[randomPos], Quaternion.identity);
             newCharacter.GetComponentInChildren<Renderer>().material = colorPool[UnityEngine.Random.Range(0, colorPool.Count)];
 
             characters.Add(newCharacter.GetComponent<PlayerController>());
+
+            locationPool[availablePositions[randomPos]] = true;
         }
     }
 
@@ -88,5 +96,6 @@ public class GameManager : MonoBehaviour
     public void SetNewRunner(GameObject newRunner)
     {
         currentPlayer = newRunner.GetComponent<PlayerController>();
+        locationPool[locationPool.FirstOrDefault(l => l.Key == currentPlayer.transform.position).Key] = false;
     }
 }

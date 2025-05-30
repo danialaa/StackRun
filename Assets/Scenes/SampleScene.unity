@@ -158,7 +158,7 @@ MonoBehaviour:
   cameraController: {fileID: 330585548}
   playerPrefab: {fileID: 2206357476579147961, guid: 38bef58a5908a9546b4e538e22cd32f4, type: 3}
   plane: {fileID: 580072428}
-  idleCt: 3
+  idleCt: 6
   stackCt: 0
 --- !u!4 &305347789
 Transform:

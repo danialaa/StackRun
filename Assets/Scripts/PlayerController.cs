@@ -57,8 +57,8 @@ public class PlayerController : MonoBehaviour
         {
             if (!isRunning && !isStacked)
             {
-                StartRunning();
                 GameManager.Instance.SetNewRunner(gameObject);
+                StartRunning();
             }
             else if (isRunning && !isStacked)
             {
