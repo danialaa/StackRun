@@ -32,16 +32,16 @@ public class GameManager : MonoBehaviour
         else
             Instance = this;
 
-        locationPool = new Dictionary<Vector3, bool>() { { new Vector3(2, 0, -11), false },
-                                                         { new Vector3(0, 0, -3), false },
+        locationPool = new Dictionary<Vector3, bool>() { { new Vector3(2, 0, -1), false },
+                                                         { new Vector3(0, 0, 3), false },
                                                          { new Vector3(-4, 0, -7), false },
-                                                         { new Vector3(11, 0, 9), false },
-                                                         { new Vector3(-9, 0, 6), false },
+                                                         { new Vector3(11, 0, 14), false },
+                                                         { new Vector3(-9, 0, 25), false },
                                                          { new Vector3(13, 0, -5), false },
-                                                         { new Vector3(6, 0, -1), false },
+                                                         { new Vector3(6, 0, 20), false },
                                                          { new Vector3(-10, 0, -9), false },
-                                                         { new Vector3(-13, 0, -1), false },
-                                                         { new Vector3(1, 0, 12), false }};
+                                                         { new Vector3(-13, 0, 35), false },
+                                                         { new Vector3(1, 0, 17), false }};
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
