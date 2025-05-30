@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     private List<PlayerController> characters = new List<PlayerController>();
     private PlayerController currentPlayer;
 
+    public int stackCt = 0;
+
     public static GameManager Instance { get; private set; }
 
     private void Awake()
@@ -74,9 +76,11 @@ public class GameManager : MonoBehaviour
 
     void UpdateStackedCharacters()
     {
-        foreach(PlayerController character in characters.Where(c => c.isStacked).ToList())
+        List<PlayerController> stackedPlayers = characters.Where(c => c.isStacked).OrderByDescending(c => c.stackedID).ToList();
+
+        for (int i = 0; i < stackedPlayers.Count; i++)
         {
-            character.MoveWithRunner(currentPlayer.transform.position);
+            stackedPlayers[i].MoveWithRunner(currentPlayer.transform.position, currentPlayer.transform.rotation, i);
         }
     }
 

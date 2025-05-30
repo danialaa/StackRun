@@ -5,9 +5,9 @@ public class PlayerController : MonoBehaviour
 {
     [HideInInspector] public bool isRunning { get; private set; }
     [HideInInspector] public bool isStacked { get; private set; }
+    [HideInInspector] public int stackedID { get; private set; }
 
-    float yAmountToElevate = 1f;
-    float zAmountToSit = -1f;
+    float yAmountToElevate = 1.6f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,30 +29,33 @@ public class PlayerController : MonoBehaviour
 
     public void StackCharacter()
     {
+        stackedID = ++GameManager.Instance.stackCt;
+
         isRunning = false;
         isStacked = true;
         gameObject.GetComponent<Animator>().SetBool("isRunning", false);
         gameObject.GetComponent<Animator>().SetBool("isStacked", true);
 
-        gameObject.GetComponent<Rigidbody>().useGravity = false;
-        MoveWithRunner(transform.position);
+        gameObject.GetComponent<BoxCollider>().enabled = false;
+        MoveWithRunner(transform.position, transform.rotation, 1);
     }
 
-    public void MoveWithRunner(Vector3 runnerPosition)
+    public void MoveWithRunner(Vector3 runnerPosition, Quaternion runnerRotation, int numberInStack)
     {
-        transform.position = new Vector3(runnerPosition.x, runnerPosition.y + yAmountToElevate, runnerPosition.z + zAmountToSit);
+        transform.position = new Vector3(runnerPosition.x, runnerPosition.y + yAmountToElevate + numberInStack, runnerPosition.z);
+        transform.rotation = runnerRotation;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Character")
         {
-            if (!isRunning)
+            if (!isRunning && !isStacked)
             {
                 StartRunning();
                 GameManager.Instance.SetNewRunner(gameObject);
             }
-            else
+            else if (isRunning && !isStacked)
             {
                 StackCharacter();
             }
