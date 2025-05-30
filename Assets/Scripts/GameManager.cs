@@ -77,10 +77,11 @@ public class GameManager : MonoBehaviour
     void UpdateStackedCharacters()
     {
         List<PlayerController> stackedPlayers = characters.Where(c => c.isStacked).OrderByDescending(c => c.stackedID).ToList();
+        float lastY = currentPlayer.transform.position.y;
 
         for (int i = 0; i < stackedPlayers.Count; i++)
         {
-            stackedPlayers[i].MoveWithRunner(currentPlayer.transform.position, currentPlayer.transform.rotation, i);
+            lastY = stackedPlayers[i].MoveWithRunner(currentPlayer.transform.position, currentPlayer.transform.rotation, i == 0 ? true : false, lastY);
         }
     }
 
