@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using System.Linq;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] TMP_Text scoreText;
     [SerializeField] List<Material> colorPool = new List<Material>();
     [SerializeField] CameraController cameraController;
     [SerializeField] GameObject playerPrefab;
@@ -15,6 +17,7 @@ public class GameManager : MonoBehaviour
     private Dictionary<Vector3, bool> locationPool = new Dictionary<Vector3, bool>();
     private List<PlayerController> characters = new List<PlayerController>();
     private PlayerController currentPlayer;
+    private int scoreValue = 0;
 
     public int stackCt = 0;
 
@@ -97,5 +100,8 @@ public class GameManager : MonoBehaviour
     {
         currentPlayer = newRunner.GetComponent<PlayerController>();
         locationPool[locationPool.FirstOrDefault(l => l.Key == currentPlayer.transform.position).Key] = false;
+
+        scoreValue++;
+        scoreText.text = scoreValue.ToString();
     }
 }
