@@ -7,9 +7,10 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool isStacked { get; private set; }
     [HideInInspector] public int stackedID { get; private set; }
 
-    float firstToElevate = 1.6f;
-    float otherToElevate = 1.3f;
-    float stackedXRotation = 9f;
+    float firstToElevate = 0.8f;
+    float otherToElevate = 0.7f;
+    float stackedXRotation = 24f;
+    float sittingZDistance = -0.15f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
     public float MoveWithRunner(Vector3 runnerPosition, Quaternion runnerRotation, bool isFirstToElevate, float lastY)
     {
-        transform.position = new Vector3(runnerPosition.x, lastY + (isFirstToElevate ? firstToElevate : otherToElevate), runnerPosition.z);
+        transform.position = new Vector3(runnerPosition.x, lastY + (isFirstToElevate ? firstToElevate : otherToElevate), runnerPosition.z + sittingZDistance);
         transform.rotation = Quaternion.Euler(new Vector3(stackedXRotation, runnerRotation.eulerAngles.y, runnerRotation.eulerAngles.z));
 
         return transform.position.y;
